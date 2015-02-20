@@ -18,4 +18,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
  #    vb.gui = true
  #  end
 
+ #configure port forwarding
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  
 end
