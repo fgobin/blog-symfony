@@ -2,11 +2,20 @@
 BloggerBlogBundle_homepage:
     pattern:  /
     defaults: { _controller: BloggerBlogBundle:Page:index }
-    requirements:
-        _method:  GET
+    methods: [GET]
+
 
 BloggerBlogBundle_about:
     pattern: /about
     defaults: { _controller: BloggerBlogBundle:Page:about }
-    requirements:
-      _method:  GET
+    methods: [GET]
+
+BloggerBlogBundle_contactShow:
+    pattern: /contact
+    defaults: { _controller: BloggerBlogBundle:Page:contactShow}
+    methods: [GET]
+
+BloggerBlogBundle_contactPost:
+    pattern: /contact
+    defaults: { _controller: BloggerBlogBundle:Page:contactPost}
+    methods: [POST]
