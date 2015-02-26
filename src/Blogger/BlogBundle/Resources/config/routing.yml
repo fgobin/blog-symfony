@@ -19,3 +19,10 @@ BloggerBlogBundle_contactPost:
     pattern: /contact
     defaults: { _controller: BloggerBlogBundle:Page:contactPost}
     methods: [POST]
+
+BloggerBlogBundle_blog_show:
+    pattern:  /{id}
+    defaults: { _controller: BloggerBlogBundle:Blog:show }
+    methods: [GET]
+    requirements:
+        id: \d+

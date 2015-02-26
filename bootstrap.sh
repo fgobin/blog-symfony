@@ -14,6 +14,8 @@ apt-get -y install php5-fpm > /dev/null
 apt-get -y install php5-cli > /dev/null
 apt-get -y install php5-pgsql > /dev/null
 apt-get -y install php5-intl > /dev/null
+apt-get -y install php5-curl > /dev/null
+
 echo "date.timezone = \"Europe/Zagreb\"" >> /etc/php5/fpm/php.ini
 service php5-fpm restart
 

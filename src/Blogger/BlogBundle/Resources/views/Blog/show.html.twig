@@ -1,0 +1,37 @@
+{# src/Blogger/BlogBundle/Resouces/views/Blog/show.html.twig #}
+{% extends 'BloggerBlogBundle::layout.html.twig' %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block body %}
+    <article class="blog">
+        <header>
+            <div class="date"><time datetime="{{ blog.created|date('c') }}">{{ blog.created|date('l, F j, Y') }}</time></div>
+            <h2>{{ blog.title }}</h2>
+        </header>
+        {% if blog.image %}
+            {% if blog.image|lower starts with 'http' %}
+            <img src="{{ blog.image }}" alt="{{ blog.title }} image not found" class="large" />
+            {% else %}
+            <img src="{{ asset(['bundles/bloggerblog/images/', blog.image]|join) }}" alt="{{ blog.title }} image not found" class="large" />
+            {% endif %}
+        {% endif %}
+        <div>
+            <p>{{ blog.blog }}</p>
+        </div>
+    </article>
+    <nav>
+        <ul class="pager">
+            {% if previousBlog %}
+                <li class="previous">
+                    <a href="{{ path('BloggerBlogBundle_blog_show', {'id' : previousBlog}) }}">Previous</a>
+                </li>
+            {% endif %}
+            {% if nextBlog %}
+                <li class="next">
+                    <a href="{{ path('BloggerBlogBundle_blog_show', {'id' : nextBlog}) }}">Next</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}
