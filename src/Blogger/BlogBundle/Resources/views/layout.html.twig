@@ -3,9 +3,19 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('bundles/bloggerblog/css/blog.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
 
+{% block jumbotron %}
+    <h1>Welcome to blog</h1>
+    <p>Lorem ipsum dolor sit amet</p>
+{% endblock %}
+
+
 {% block sidebar %}
-    Sidebar content
+    <h3>Tags</h3>
+    <p>
+        <a href="#" class="label label-primary">#example1</a>
+        <a href="#" class="label label-warning">#example2</a>
+        <a href="#" class="label label-success">#example3</a>
+    </p>
 {% endblock %}
