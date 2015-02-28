@@ -3,6 +3,11 @@
 
 {% block title %}{{ blog.title }}{% endblock %}
 
+{% block stylesheets %}
+ {{ parent() }}
+    <link href="{{ asset('bundles/bloggerblog/css/comment.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
 {% block body %}
     <article class="blog">
         <header>
@@ -35,14 +40,16 @@
         </ul>
     </nav>
 
-    <section class="comments" id="comments">
-        <section class="previous-comments">
-            <h3>Comments</h3>
-            {% include 'BloggerBlogBundle:Comment:index.html.twig' with { 'comments': comments } %}
-        </section>
+    <div class="container  col-md-12">
 
+        <div class="container  col-md-8">
+        <h3>Comments</h3>
+            {% include 'BloggerBlogBundle:Comment:index.html.twig' with { 'comments': comments } %}
+        </div>
+        <div class="container  col-md-8">
         <h3>Add Comment</h3>
-        {{ render(controller( 'BloggerBlogBundle:Comment:new', { 'blog_id': blog.id } )) }}
-    </section>
+            {{ render(controller( 'BloggerBlogBundle:Comment:new', { 'blog_id': blog.id } )) }}
+        </div>
+    </div>
 
 {% endblock %}

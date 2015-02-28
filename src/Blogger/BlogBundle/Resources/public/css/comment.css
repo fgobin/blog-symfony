@@ -1,0 +1,21 @@
+
+li.ui-state-default{
+    border:none;
+    border-bottom:1px solid #ddd;
+    text-align: left;
+    padding-bottom: 10px;
+}
+
+.well,.panel {
+    border-color:#d2d2d2;
+    box-shadow:0 1px 0 #cfcfcf;
+    border-radius:3px;
+}
+
+hr {
+    border-color:#ececec;
+}
+
+.list-group-item:first-child,.list-group-item:last-child {
+    border-radius:0;
+}

@@ -1,12 +1,18 @@
 {# src/Blogger/BlogBundle/Resources/views/Comment/index.html.twig #}
 
-{% for comment in comments %}
-    <article class="comment {{ cycle(['odd', 'even'], loop.index0) }}" id="comment-{{ comment.id }}">
-        <header>
-            <p><span class="highlight">{{ comment.author }}</span> commented <time datetime="{{ comment.created|date('c') }}">{{ comment.created|date('l, F j, Y') }}</time></p>
-        </header>
-        <p>{{ comment.comment }}</p>
-    </article>
-{% else %}
-    <p>There are no comments for this post. Be the first to comment...</p>
-{% endfor %}
+<div class="col-lg-12 col-sm-12 text-left">
+    <hr data-brackets-id="12673">
+    <ul data-brackets-id="12674" id="sortable" class="list-unstyled ui-sortable">
+        {% for comment in comments %}
+            <strong class="pull-left primary-font">{{ comment.author }}</strong>
+            <small class="pull-right text-muted">
+                <span class="glyphicon glyphicon-time"></span>{{ comment.created|date('l, F j, Y') }}</small>
+            </br>
+            <li class="ui-state-default" id="comment-{{ comment.id }}">{{ comment.comment }}</li>
+            </br>
+        {% else %}
+            <strong class="pull-left primary-font">There are no comments for this post. Be the first to comment...</strong>
+        {% endfor %}
+    </ul>
+</div>
+
