@@ -24,14 +24,25 @@
         <ul class="pager">
             {% if previousBlog %}
                 <li class="previous">
-                    <a href="{{ path('BloggerBlogBundle_blog_show', {'id' : previousBlog}) }}">Previous</a>
+                    <a href="{{ path('BloggerBlogBundle_blog_show', {'id' : previousBlog.id}) }}">Previous</a>
                 </li>
             {% endif %}
             {% if nextBlog %}
                 <li class="next">
-                    <a href="{{ path('BloggerBlogBundle_blog_show', {'id' : nextBlog}) }}">Next</a>
+                    <a href="{{ path('BloggerBlogBundle_blog_show', {'id' : nextBlog.id}) }}">Next</a>
                 </li>
             {% endif %}
         </ul>
     </nav>
+
+    <section class="comments" id="comments">
+        <section class="previous-comments">
+            <h3>Comments</h3>
+            {% include 'BloggerBlogBundle:Comment:index.html.twig' with { 'comments': comments } %}
+        </section>
+
+        <h3>Add Comment</h3>
+        {{ render(controller( 'BloggerBlogBundle:Comment:new', { 'blog_id': blog.id } )) }}
+    </section>
+
 {% endblock %}

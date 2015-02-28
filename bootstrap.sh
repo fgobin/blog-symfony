@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# Edit the following to change the name of the database user that will be created:
+APP_DB_USER=joe
+APP_DB_PASS=joe
+
+# Edit the following to change the name of the database that is created (defaults to the user name)
+APP_DB_NAME=symfony_blog
+
 #refresh repositories
 echo "apt-get update"
 apt-get update > /dev/null
@@ -52,6 +59,33 @@ curl -LsS http://symfony.com/installer > symfony.phar
 mv symfony.phar /usr/local/bin/symfony
 chmod a+x /usr/local/bin/symfony
 
+#create database users
+echo "Creating postgresql user and database"
+cat << EOF | su - postgres -c psql
+-- Create the database user:
+CREATE USER $APP_DB_USER WITH PASSWORD '$APP_DB_PASS';
+
+-- Create the database:
+CREATE DATABASE $APP_DB_NAME WITH OWNER=$APP_DB_USER
+                                  LC_COLLATE='en_US.utf8'
+                                  LC_CTYPE='en_US.utf8'
+                                  ENCODING='UTF8'
+                                  TEMPLATE=template0;
+EOF
+
+#create database schema, and load fixtures
+/var/www/app/console doctrine:schema:create
+/var/www/app/console doctrine:fixtures:load
+
+#execute composer update and install if fresh pull
+if [ ! -d /var/www/vendor ] 
+then
+   cd /var/www
+   composer update
+   composer install
+fi
+
+
 #copy configuration for nginx
 echo "Copying nginx configuration file"
 cp /var/www/vagrant/nginx/default /etc/nginx/sites-enabled/default
@@ -60,4 +94,5 @@ cp /var/www/vagrant/nginx/default /etc/nginx/sites-enabled/default
 echo "Restarting nginx"
 nginx -s stop
 nginx
+
 
