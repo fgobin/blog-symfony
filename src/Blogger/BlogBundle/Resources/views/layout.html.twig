@@ -3,6 +3,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <link href="{{ asset('bundles/bloggerblog/css/comment.css') }}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block jumbotron %}
@@ -11,10 +12,5 @@
 
 
 {% block sidebar %}
-    <h3>Tags</h3>
-    <p>
-        <a href="#" class="label label-primary">#example1</a>
-        <a href="#" class="label label-warning">#example2</a>
-        <a href="#" class="label label-success">#example3</a>
-    </p>
+    {{ render(controller( 'BloggerBlogBundle:Page:sidebar')) }}
 {% endblock %}
