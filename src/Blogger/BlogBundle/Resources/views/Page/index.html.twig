@@ -3,8 +3,7 @@
 
 {% block body %}
 
-    {% for entry in blogs %}
-        {% set blog = entry['blog'] %}
+    {% for blog in blogs %}
         <article class="blog">
             <header>
                 <div class="date"><time datetime="{{ blog.created|date('c') }}">{{ blog.created|date('l, F j, Y') }}</time></div>
@@ -35,7 +34,7 @@
                     <div class="row">
                         <ul class="list-group">
                             <li class="list-group-item list-group-item-info">
-                                <p>Comments: <span class="badge">{{ entry['numberOfComments']  }}</span></p>
+                                <p>Comments: <span class="badge"> {{ blog.comments|length  }} </span></p>
                                 <p>Posted by {{blog.author}} at {{ blog.created|date('j. F Y.') }}</p>
                                 <p>Tags: <span class="label label-default">{{ blog.tags }}</span></p>
                             </li>

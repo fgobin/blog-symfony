@@ -18,26 +18,17 @@ class BlogRepository extends EntityRepository
      * @return array of type { {blog0,numberOfComments0}, .....}
      */
     public function getLatestBlogs($limit = null) {
-         /*
-           select blog.id, title, COUNT(DISTINCT comment.id)
-            from blog left join comment on
-            blog.id = comment.blog_id
-            group by blog.id
-         */
 
-        $qb = $this->getEntityManager()
-            ->createQuery(
-            'SELECT b as blog, COUNT(DISTINCT comment.id) numberOfComments
-              FROM BloggerBlogBundle:Blog b LEFT JOIN BloggerBlogBundle:Comment comment
-              WITH b.id = comment.blog
-              GROUP BY b.id'
-        );
+        $qb = $this->createQueryBuilder('b')
+            ->select('b, c')
+            ->leftJoin('b.comments', 'c')
+            ->addOrderBy('b.created', 'DESC');
 
-        if(!is_null($limit)) {
+        if (false === is_null($limit))
             $qb->setMaxResults($limit);
-        }
 
-        return $qb->getResult();
+        return $qb->getQuery()
+            ->getResult();
 
     }
 
