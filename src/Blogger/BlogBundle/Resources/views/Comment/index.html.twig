@@ -6,7 +6,7 @@
         {% for comment in comments %}
             <strong class="pull-left primary-font">{{ comment.author }}</strong>
             <small class="pull-right text-muted">
-                <span class="glyphicon glyphicon-time"></span>{{ comment.created|date('l, F j, Y') }}</small>
+                <span class="glyphicon glyphicon-time"></span>{{ comment.created|created_ago }}</small>
             </br>
             <li class="ui-state-default" id="comment-{{ comment.id }}">{{ comment.comment }}</li>
             </br>

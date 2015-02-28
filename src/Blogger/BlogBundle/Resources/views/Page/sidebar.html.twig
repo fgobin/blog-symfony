@@ -26,14 +26,16 @@
         {% for comment in latestComments %}
             <div class="row">
             <small class="pull-right text-muted">
-                <span class="glyphicon glyphicon-time"></span>{{ comment.created|date('l, F j, Y') }}</small>
+                <span class="glyphicon glyphicon-time"></span>{{ comment.created|created_ago }}</small>
             </br>
             </div>
 
             <div class="row">
                 <strong class="pull-left primary-font">{{ comment.author }}</strong>
                 <br ><p> commented on:
-                <a href="{{ path('BloggerBlogBundle_blog_show', { 'id': comment.blog.id }) }}">{{ comment.blog.title }}</a></p>
+                <a href="{{ path('BloggerBlogBundle_blog_show', { 'id': comment.blog.id,'slug': comment.blog.slug }) }}">
+                    {{ comment.blog.title }}
+                </a></p>
             </div>
 
             <li class="ui-state-default" id="comment-{{ comment.id }}">{{ comment.comment }}</li>

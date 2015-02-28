@@ -20,7 +20,7 @@ BloggerBlogBundle_contactPost:
     methods: [POST]
 
 BloggerBlogBundle_blog_show:
-    pattern:  /{id}
+    pattern:  /{id}/{slug}
     defaults: { _controller: BloggerBlogBundle:Blog:show }
     methods: [GET]
     requirements:
