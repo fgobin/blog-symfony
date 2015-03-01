@@ -6,6 +6,7 @@ namespace Blogger\BlogBundle\Controller;
 use Blogger\BlogBundle\Entity\Comment;
 use Blogger\BlogBundle\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class CommentController extends  Controller{
@@ -39,13 +40,17 @@ class CommentController extends  Controller{
                 $em->persist($comment);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('BloggerBlogBundle_blog_show', array(
-                        'id'    => $comment->getBlog()->getId(),
-                        'slug'  => $comment->getBlog()->getSlug())) .
-                    '#comment-' . $comment->getId()
-                );
+                //Return JSON response
+                $response = new JsonResponse();
+                $response->setData(array(
+                    'author' => $comment->getAuthor(),
+                    'comment' => $comment->getComment(),
+                    'created' => $comment->getCreated(),
+                    'id' => $comment->getId()
+                ));
+                return $response;
             }
-
+            //TODO: set status code and return error message
             return $this->redirect($this->generateUrl('BloggerBlogBundle_blog_show', array(
                     'id' => $comment->getBlog()->getId())) .
                 '#comment-' . $comment->getId()
