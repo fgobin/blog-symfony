@@ -13,7 +13,6 @@ class BlogController extends  Controller{
         $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($id);
 
         if (!$blog) {
-            //TODO: better 404 or redirect!!!!
             throw $this->createNotFoundException('Unable to find Blog post.');
         }
 

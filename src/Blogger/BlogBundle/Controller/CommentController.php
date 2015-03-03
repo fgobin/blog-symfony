@@ -35,32 +35,22 @@ class CommentController extends  Controller{
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($comment);
-                $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
 
-                //Return JSON response
-                $response = new JsonResponse();
-                $response->setData(array(
-                    'author' => $comment->getAuthor(),
-                    'comment' => $comment->getComment(),
-                    'created' => $comment->getCreated(),
-                    'id' => $comment->getId()
-                ));
-                return $response;
-            }
-            //TODO: set status code and return error message
-            return $this->redirect($this->generateUrl('BloggerBlogBundle_blog_show', array(
-                    'id' => $comment->getBlog()->getId())) .
-                '#comment-' . $comment->getId()
-            );
+            //Return JSON response
+            $response = new JsonResponse();
+            $response->setData(array(
+                'author' => $comment->getAuthor(),
+                'comment' => $comment->getComment(),
+                'created' => $comment->getCreated(),
+                'id' => $comment->getId()
+            ));
+            return $response;
         }
 
-        return $this->render('BloggerBlogBundle:Comment:create.html.twig', array(
-            'comment' => $comment,
-            'form'    => $form->createView()
-        ));
+        return new JsonResponse(array('message' => 'Please input valid data in comment form.'), 400);
     }
 
     protected function getBlog($blog_id) {
