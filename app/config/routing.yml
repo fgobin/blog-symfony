@@ -8,6 +8,10 @@ blogger_admin:
     prefix:   /admin
     type: annotation
 
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    prefix:   /admin
+
 app:
     resource: @AppBundle/Controller/
     type:     annotation

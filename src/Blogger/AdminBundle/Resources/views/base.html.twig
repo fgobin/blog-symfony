@@ -31,20 +31,27 @@
            <a class="navbar-brand" href="{{ path('BloggerAdminBundle_page_homepage') }}">Administration</a>
         </div>
         <div class="collapse navbar-collapse" id="blog-navbar">
-            {% block navigation %}
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">
-                            Users
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ path('BloggerAdminBundle_blog_showBlogs') }}">
-                            Blogs
-                        </a>
-                    </li>
-                </ul>
-            {%  endblock %}
+            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN')%}
+                {% block navigation %}
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="#">
+                                Users
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('BloggerAdminBundle_blog_showBlogs') }}">
+                                Blogs
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                {%  endblock %}
+            {% endif %}
         </div>
     </div>
 </header>
