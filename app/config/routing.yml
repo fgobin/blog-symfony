@@ -2,6 +2,12 @@ blogger_blog:
     resource: "@BloggerBlogBundle/Resources/config/routing.yml"
     prefix:   /
 
+
+blogger_admin:
+    resource: "@BloggerAdminBundle/Controller"
+    prefix:   /admin
+    type: annotation
+
 app:
     resource: @AppBundle/Controller/
     type:     annotation
