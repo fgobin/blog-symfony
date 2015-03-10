@@ -35,7 +35,7 @@
                 {% block navigation %}
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="#">
+                            <a href="{{ path('user') }}">
                                 Users
                             </a>
                         </li>
@@ -43,6 +43,14 @@
                             <a href="{{ path('BloggerAdminBundle_blog_showBlogs') }}">
                                 Blogs
                             </a>
+                        </li>
+
+                    </ul>
+                {%  endblock %}
+                {% block authentication_status %}
+                    <ul class="nav navbar-nav pull-right">
+                        <li>
+                           <p> You are logged in as {{ app.user.username }} </p>
                         </li>
                         <li>
                             <a href="{{ path('fos_user_security_logout') }}">
