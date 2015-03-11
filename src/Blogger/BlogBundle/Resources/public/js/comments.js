@@ -27,7 +27,7 @@ function postForm($form, successCallback, errorCallback ){
 }
 
 $(document).ready(function(){
-    $('form').submit( function( e ){
+    $('#comment_form').submit( function( e ){
         e.preventDefault();
         postForm( $(this),
             function( response ){
