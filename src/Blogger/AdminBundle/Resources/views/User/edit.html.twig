@@ -35,7 +35,7 @@
     {{ form_end(edit_form) }}
 
     {{ form_start(delete_form, {'method': 'DELETE'}) }}
-        {{ form_widget(delete_form.submit, { 'label': 'Delete' ,'id': 'delete_button' 'attr': {'class':'btn btn-default'}}) }}
+        {{ form_widget(delete_form.submit, { 'label': 'Delete' ,'id': 'delete_button', 'attr': {'class':'btn btn-default'}}) }}
         {{ form_rest(delete_form) }}
     {{ form_end(delete_form) }}
 
