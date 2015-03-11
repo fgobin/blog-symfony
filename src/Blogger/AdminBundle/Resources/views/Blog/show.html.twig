@@ -1,5 +1,5 @@
 {# src/Blogger/BlogBundle/Resouces/views/Blog/show.html.twig #}
-{% extends 'BloggerBlogBundle::layout.html.twig' %}
+{% extends 'BloggerAdminBundle::base.html.twig' %}
 
 {% block title %}{{ blog.title }}{% endblock %}
 
@@ -24,20 +24,22 @@
             <p>{{ blog.blog }}</p>
         </div>
     </article>
+
     <nav>
         <ul class="pager">
             {% if previousBlog %}
                 <li class="previous">
-                    <a href="{{ path('BloggerBlogBundle_blog_show', {'id' : previousBlog.id, 'slug': previousBlog.slug}) }}">Previous</a>
+                    <a href="{{ path('blog_show', {'id' : previousBlog.id, 'slug': previousBlog.slug}) }}">Previous</a>
                 </li>
             {% endif %}
             {% if nextBlog %}
                 <li class="next">
-                    <a href="{{ path('BloggerBlogBundle_blog_show', {'id' : nextBlog.id, 'slug': nextBlog.slug}) }}">Next</a>
+                    <a href="{{ path('blog_show', {'id' : nextBlog.id, 'slug': nextBlog.slug}) }}">Next</a>
                 </li>
             {% endif %}
         </ul>
     </nav>
+
 
     <div class="container  col-md-12">
 

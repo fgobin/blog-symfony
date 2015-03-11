@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CommentType extends AbstractType
+class BlogType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,15 +15,20 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('author','text')
-            ->add('comment','textarea');
+            ->add('title')
+            ->add('blog')
+            ->add('image')
+            ->add('tags');
     }
 
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults([
-            'attr' => ['id' => 'comment_form']
-        ]);
+        $resolver->setDefaults(array(
+            'data_class' => 'Blogger\BlogBundle\Entity\Blog'
+        ));
     }
 
     /**
@@ -31,6 +36,6 @@ class CommentType extends AbstractType
      */
     public function getName()
     {
-        return 'blogger_blogbundle_comment';
+        return 'blogger_blogbundle_blog';
     }
 }

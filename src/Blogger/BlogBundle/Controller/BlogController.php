@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BlogController extends  Controller{
 
-    public function showAction($id,$slug) {
+    public function showAction($id, $slug) {
         $em = $this->getDoctrine()->getManager();
 
         $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($id);
@@ -17,7 +17,7 @@ class BlogController extends  Controller{
         }
 
         $comments = $em->getRepository('BloggerBlogBundle:Comment')
-                        ->getCommentsForBlog($blog->getId());
+            ->getCommentsForBlog($blog->getId());
 
         $previousBlog = $em->getRepository('BloggerBlogBundle:Blog')->getPreviousBlog($id);
         $nextBlog = $em->getRepository('BloggerBlogBundle:Blog')->getNextBlog($id);
