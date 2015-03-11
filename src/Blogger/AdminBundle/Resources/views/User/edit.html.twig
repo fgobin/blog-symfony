@@ -6,15 +6,37 @@
 
 {% block body -%}
 
-    {{ form(edit_form) }}
+    {{ form_start(edit_form, {'method': 'PUT'}) }}
 
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="{{ path('user') }}">
-                Back to the list
-            </a>
-        </li>
-    </ul>
+        <div class="form-group">
+            {{ form_label(edit_form.username, 'Username:', {'label_attr': {'class':'col-sm-2 control-label'}}) }}
+            <div class="col-sm-10">
+                {{ form_widget(edit_form.username, {'attr': {'class':'form-control'}}) }}
+            </div>
+        </div>
 
-    <li>{{ form(delete_form) }}</li>
+        <div class="form-group">
+            {{ form_label(edit_form.email, 'Email:', {'label_attr': {'class':'col-sm-2 control-label'}}) }}
+            <div class="col-sm-10">
+                {{ form_widget(edit_form.email, {'attr': {'class':'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(edit_form.password, 'Password: ', {'label_attr': {'class':'col-sm-2 control-label'}}) }}
+            <div class="col-sm-10">
+                {{ form_widget(edit_form.password, {'attr': {'class':'form-control'}}) }}
+            </div>
+        </div>
+
+        {{ form_widget(edit_form.submit, { 'label': 'Update' , 'attr': {'class':'btn btn-default'}}) }}
+        {{ form_rest(edit_form) }}
+
+    {{ form_end(edit_form) }}
+
+    {{ form_start(delete_form, {'method': 'DELETE'}) }}
+        {{ form_widget(delete_form.submit, { 'label': 'Delete' ,'id': 'delete_button' 'attr': {'class':'btn btn-default'}}) }}
+        {{ form_rest(delete_form) }}
+    {{ form_end(delete_form) }}
+
 {% endblock %}

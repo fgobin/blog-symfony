@@ -51,6 +51,8 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setPlainPassword($entity->getPassword());
+            $entity->setEnabled(true);
             $entity->addRole('ROLE_ADMIN');
             $em->persist($entity);
             $em->flush();
@@ -193,6 +195,7 @@ class UserController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->setPlainPassword($entity->getPassword());
             $em->flush();
 
             return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
