@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_pgsql
+    database_host: 127.0.0.1
+    database_port: '5432'
+    database_name: symfony_blog
+    database_user: joe
+    database_password: joe
+    mailer_transport: gmail
+    mailer_host: null
+    mailer_user: sampleusername
+    mailer_password: password
+    locale: en
+    secret: 73ccf323a1e36f703403c7162501d5b2d366a636

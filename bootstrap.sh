@@ -73,18 +73,20 @@ CREATE DATABASE $APP_DB_NAME WITH OWNER=$APP_DB_USER
                                   TEMPLATE=template0;
 EOF
 
-#create database schema, and load fixtures
-/var/www/app/console doctrine:schema:create
-/var/www/app/console doctrine:fixtures:load
-
 #execute composer update and install if fresh pull
-if [ ! -d /var/www/vendor ] 
+if [ ! -d /var/www/vendor ]
 then
    cd /var/www
    composer update
    composer install
 fi
 
+#copy parameters file
+cp /var/www/vagrant/app/parameters.yml /var/www/app/config/parameters.yml
+
+#create database schema, and load fixtures
+php /var/www/app/console doctrine:schema:create
+php /var/www/app/console doctrine:fixtures:load
 
 #copy configuration for nginx
 echo "Copying nginx configuration file"
@@ -92,7 +94,6 @@ cp /var/www/vagrant/nginx/default /etc/nginx/sites-enabled/default
 
 #restart nginx server if running
 echo "Restarting nginx"
-nginx -s stop
-nginx
+service nginx restart
 
 
