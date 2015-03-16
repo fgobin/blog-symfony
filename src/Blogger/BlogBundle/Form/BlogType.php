@@ -17,7 +17,9 @@ class BlogType extends AbstractType
         $builder
             ->add('title')
             ->add('blog', 'textarea')
-            ->add('image')
+            ->add('image', 'vlabs_file', array(
+                'required' => false
+            ))
             ->add('tags');
     }
 

@@ -4,6 +4,8 @@ namespace Blogger\BlogBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vlabs\MediaBundle\Annotation\Vlabs;
 
 /**
  * Blog
@@ -44,7 +46,15 @@ class Blog
     protected $blog;
 
     /**
-     * @ORM\Column(type="string", length=200, nullable = true)
+     * @var VlabsFile
+     *
+     * @ORM\OneToOne(targetEntity="Image", cascade={"persist", "remove"}, orphanRemoval=true))
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="image", referencedColumnName="id")
+     * })
+     *
+     * @Vlabs\Media(identifier="image_entity", upload_dir="uploads/images")
+     * @Assert\Valid()
      */
     protected $image;
 
@@ -171,10 +181,10 @@ class Blog
     /**
      * Set image
      *
-     * @param string $image
-     * @return Blog
+     * @param \Blogger\BlogBundle\Entity\Image $image
+     * @return image
      */
-    public function setImage($image)
+    public function setImage(Image $image = null)
     {
         $this->image = $image;
 
@@ -184,7 +194,7 @@ class Blog
     /**
      * Get image
      *
-     * @return string 
+     * @return \Blogger\BlogBundle\Entity\Image
      */
     public function getImage()
     {

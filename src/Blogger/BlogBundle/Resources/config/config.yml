@@ -3,3 +3,10 @@ parameters:
     # Blogger contact email address
     blogger_blog.emails.contact_email: contactemail@mail.com
     blogger_blog.comments.latest_comment_limit: 10
+
+vlabs_media:
+    image_cache:
+        cache_dir: uploads/images/cache
+    mapping:
+        image_entity:
+          class: Blogger\BlogBundle\Entity\Image

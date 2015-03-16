@@ -11,11 +11,7 @@
             </header>
 
             {% if blog.image %}
-                {% if blog.image|lower starts with 'http' %}
-                    <img src="{{ blog.image }}" alt="{{ blog.title }} image not found" class="large" />
-                {% else %}
-                    <img src="{{ asset(['bundles/bloggerblog/images/', blog.image]|join) }}" alt="{{ blog.title }} image not found" class="large" />
-                {% endif %}
+                {{ blog.image|vlabs_media('image') }}
             {% endif %}
 
             <div>
