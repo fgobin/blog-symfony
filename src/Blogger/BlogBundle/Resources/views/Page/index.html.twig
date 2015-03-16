@@ -19,7 +19,7 @@
             {% endif %}
 
             <div>
-                <p>{{ blog.blog(300) }}</p>
+                <p>{{ blog.blog |raw }}</p> <!-- TODO: close end tags... don't show whole blog post-->
             </div>
             <div class="row col-md-12">
 
