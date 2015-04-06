@@ -34,8 +34,6 @@ BloggerBlogBundle_comment_create:
         blog_id: \d+
 
 BloggerBlogBundle_blog_search:
-    path:     /search/{query}
+    path:     /search
     defaults: { _controller: BloggerBlogBundle:BlogSearch:search }
     methods: [GET]
-    requirements:
-        query: \w+
