@@ -32,3 +32,10 @@ BloggerBlogBundle_comment_create:
     methods: [POST]
     requirements:
         blog_id: \d+
+
+BloggerBlogBundle_blog_search:
+    path:     /search/{query}
+    defaults: { _controller: BloggerBlogBundle:BlogSearch:search }
+    methods: [GET]
+    requirements:
+        query: \w+

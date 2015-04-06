@@ -1,0 +1,43 @@
+{# src/Blogger/BlogBundle/Resources/views/Page/contact.html.twig #}
+{% extends 'BloggerBlogBundle::layout.html.twig' %}
+
+{% block title %}Search results{% endblock%}
+
+{% block body %}
+
+    {%  if blogs|length == 0 %}
+        <header>
+            <h1>No results</h1>
+        </header>
+
+    {% else %}
+    <header>
+        <h1>Search results:</h1>
+    </header>
+
+    <table class="table table-striped">
+
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Show</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for blog in blogs %}
+            <tr>
+                <td>
+                    <a href="{{ path('BloggerBlogBundle_blog_show', { 'id': blog.id,'slug': blog.slug }) }}">{{ blog.title }}</a>
+                </td>
+                <td>
+                    <a href="{{ path('BloggerBlogBundle_blog_show', { 'id': blog.id,'slug': blog.slug }) }}">show</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+    {% endif %}
+{% endblock %}

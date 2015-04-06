@@ -98,3 +98,16 @@ echo "Restarting nginx"
 service nginx restart
 
 
+##installing elastica search plugin
+echo "Installing JAVA RUNTIME ENVIRONMENT"
+apt-get -y install default-jre > /dev/null
+wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
+echo "deb http://packages.elasticsearch.org/elasticsearch/1.5/debian stable main" | tee -a /etc/apt/sources.list
+apt-get update > /dev/null
+echo "Installing elasticsearch"
+apt-get -y install elasticsearch > /dev/null
+
+#run on startup if vagrant halted
+update-rc.d elasticsearch defaults 95 10
+/etc/init.d/elasticsearch start
+php /var/www/app/console fos:elastica:populate

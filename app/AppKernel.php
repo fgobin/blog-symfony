@@ -22,7 +22,8 @@ class AppKernel extends Kernel
             new Blogger\BlogBundle\BloggerBlogBundle(),
             new Blogger\AdminBundle\BloggerAdminBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Vlabs\MediaBundle\VlabsMediaBundle()
+            new Vlabs\MediaBundle\VlabsMediaBundle(),
+            new FOS\ElasticaBundle\FOSElasticaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

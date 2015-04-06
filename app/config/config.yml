@@ -78,3 +78,27 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Blogger\AdminBundle\Entity\User
+
+#FOS ElasticaBundle, available with key: fos_elastica.index.app
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        app:
+            types:
+              blog:
+                  mappings:
+                      title: ~
+                      author: ~
+                      blog: ~
+                      slug: ~
+                  persistence:
+                      # the driver can be orm, mongodb or propel
+                      # listener and finder are not supported by
+                      # propel and should be removed
+                      driver: orm
+                      model: Blogger\BlogBundle\Entity\Blog
+                      provider: ~
+                      listener:
+                          immediate: ~
+                      finder: ~
