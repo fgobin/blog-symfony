@@ -74,6 +74,19 @@ CREATE DATABASE $APP_DB_NAME WITH OWNER=$APP_DB_USER
                                   TEMPLATE=template0;
 EOF
 
+##installing elastica search plugin
+echo "Installing JAVA RUNTIME ENVIRONMENT"
+apt-get -y install default-jre > /dev/null
+wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
+echo "deb http://packages.elasticsearch.org/elasticsearch/1.5/debian stable main" | tee -a /etc/apt/sources.list
+apt-get update > /dev/null
+echo "Installing elasticsearch"
+apt-get -y install elasticsearch > /dev/null
+
+#run on startup if vagrant halted
+update-rc.d elasticsearch defaults 95 10
+/etc/init.d/elasticsearch start
+
 #execute composer update and install if fresh pull
 if [ ! -d /var/www/vendor ]
 then
@@ -89,6 +102,9 @@ cp /var/www/vagrant/app/parameters.yml /var/www/app/config/parameters.yml
 php /var/www/app/console doctrine:schema:create
 php /var/www/app/console doctrine:fixtures:load
 
+#elastica populate indexes
+php /var/www/app/console fos:elastica:populate
+
 #copy configuration for nginx
 echo "Copying nginx configuration file"
 cp /var/www/vagrant/nginx/default /etc/nginx/sites-enabled/default
@@ -97,17 +113,3 @@ cp /var/www/vagrant/nginx/default /etc/nginx/sites-enabled/default
 echo "Restarting nginx"
 service nginx restart
 
-
-##installing elastica search plugin
-echo "Installing JAVA RUNTIME ENVIRONMENT"
-apt-get -y install default-jre > /dev/null
-wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
-echo "deb http://packages.elasticsearch.org/elasticsearch/1.5/debian stable main" | tee -a /etc/apt/sources.list
-apt-get update > /dev/null
-echo "Installing elasticsearch"
-apt-get -y install elasticsearch > /dev/null
-
-#run on startup if vagrant halted
-update-rc.d elasticsearch defaults 95 10
-/etc/init.d/elasticsearch start
-php /var/www/app/console fos:elastica:populate
