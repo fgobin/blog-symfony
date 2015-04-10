@@ -1,0 +1,68 @@
+{% extends "BloggerAdminBundle::base.html.twig" %}
+
+{% block jumbotron %}
+    <h1>Edit category {{ entity.name }}</h1>
+{% endblock %}
+
+{% block body -%}
+
+    {{ form_start(edit_form, {'method': 'PUT'}) }}
+
+    <div class="form-group">
+        {{ form_label(edit_form.name, 'Name:', {'label_attr': {'class':'col-sm-2 control-label'}}) }}
+        <div class="col-sm-10">
+            {{ form_widget(edit_form.name, {'attr': {'class':'form-control'}}) }}
+        </div>
+    </div>
+
+    {{ form_widget(edit_form.submit, { 'label': 'Update' , 'attr': {'class':'btn btn-default'}}) }}
+    {{ form_rest(edit_form) }}
+
+    {{ form_end(edit_form) }}
+
+
+
+    {{ form_start(delete_form, {'method': 'DELETE'}) }}
+    {{ form_widget(delete_form.submit, { 'label': 'Delete', 'name':'remove_levels' ,'id': 'delete_button', 'attr': {'class':'btn btn-default'}}) }}
+    {{ form_rest(delete_form) }}
+    {{ form_end(delete_form) }}
+
+    <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                </div>
+
+                <div class="modal-body">
+                    <p>You are about to delete a category. This cannot be undone!</p>
+                    <p>Do you want to proceed?</p>
+                    <p class="debug-url"></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
+                    <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('#delete_button').on('click', function(e){
+            var $form=$(this).closest('form');
+
+            e.preventDefault();
+
+            $('#confirm').modal({ backdrop: 'static', keyboard: false })
+                    .one('click', '#delete', function (e) {
+                        $form.trigger('submit');
+                    });
+        });
+    </script>
+{% endblock %}

@@ -20,6 +20,7 @@ class BlogFixtures extends AbstractFixture implements OrderedFixtureInterface
         $blog1->setTags('symfony2, php, paradise, symblog');
         $blog1->setCreated(new \DateTime());
         $blog1->setUpdated($blog1->getCreated());
+        $blog1->addCategory($manager->merge($this->getReference('category-1')));
         $manager->persist($blog1);
 
         $blog2 = new Blog();
@@ -72,6 +73,6 @@ class BlogFixtures extends AbstractFixture implements OrderedFixtureInterface
     }
 
     public function getOrder() {
-        return 1;
+        return 2;
     }
 }

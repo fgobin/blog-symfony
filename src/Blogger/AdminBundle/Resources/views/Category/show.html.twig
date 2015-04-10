@@ -1,0 +1,36 @@
+{% extends "BloggerAdminBundle::base.html.twig" %}
+
+{% block jumbotron %}
+    <h1>Category name: {{ entity.name }}</h1>
+{% endblock %}
+
+{% block body %}
+
+    <div class="col-sm-6">
+
+        <ul class="list-group">
+
+            <li class="list-group-item text-right">
+                <span class="pull-left">
+                    <strong class="">Name</strong>
+                </span> {{ entity.name }}
+            </li>
+
+
+            <li class="list-group-item text-left">
+                <a href="{{ path('category_edit', { 'id': entity.id }) }}">
+                    Edit
+                </a>
+            </li>
+
+            <li class="list-group-item text-left">
+                {{ form(delete_form) }}
+            </li>
+        </ul>
+
+        <a href="{{ path('category') }}">
+            Back to the list
+        </a>
+
+    </div>
+{% endblock %}

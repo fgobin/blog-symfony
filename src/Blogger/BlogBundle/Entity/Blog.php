@@ -69,6 +69,15 @@ class Blog
     protected $comments;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Category")
+     * @ORM\JoinTable(name="blog_categories",
+     *      joinColumns={@ORM\JoinColumn(name="blog_id", referencedColumnName="id", onDelete="cascade")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id", unique=true, onDelete="cascade")}
+     *      )
+     **/
+    protected $categories;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     protected $created;
@@ -375,5 +384,38 @@ class Blog
         }
 
         return $text;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \Blogger\BlogBundle\Entity\Category $categories
+     * @return Blog
+     */
+    public function addCategory(Category $categories)
+    {
+        $this->categories[] = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \Blogger\BlogBundle\Entity\Category $categories
+     */
+    public function removeCategory(Category $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }
