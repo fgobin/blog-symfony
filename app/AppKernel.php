@@ -24,6 +24,8 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Vlabs\MediaBundle\VlabsMediaBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
+            new Blogger\CommandsBundle\BloggerCommandsBundle(),
+            new Liuggio\ExcelBundle\LiuggioExcelBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
