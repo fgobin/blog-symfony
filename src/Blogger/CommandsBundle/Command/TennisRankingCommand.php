@@ -9,6 +9,7 @@
 namespace Blogger\CommandsBundle\Command;
 
 use Blogger\CommandsBundle\Entity\Player;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,6 +28,12 @@ class TennisRankingCommand extends ContainerAwareCommand
                 InputArgument::REQUIRED,
                 'Path to the xlsx file with tennis rankings'
             )
+            ->addOption(
+                'drop-old',
+                null,
+                InputOption::VALUE_NONE,
+                'Drop old data in database and replace it with new'
+            )
         ;
     }
 
@@ -41,9 +48,7 @@ class TennisRankingCommand extends ContainerAwareCommand
 
         //number of rows and collumns
         $rowCount = intval($activeSheet->getHighestDataRow());
-        $colCount = $activeSheet->getHighestDataColumn();
-        //$output->writeln($rowCount);
-        //$output->writeln($colCount);
+        //$colCount = $activeSheet->getHighestDataColumn();
 
         /**
          * DEFINE CONSTANTS
@@ -61,11 +66,19 @@ class TennisRankingCommand extends ContainerAwareCommand
         //margin of table (where data starts)
         $tableMargin = 6;
 
-        $output->writeln("PARSING PLAYERS FROM XML FILE");
-
         //get entity manager
         $em = $this->getContainer()->get('doctrine')->getManager();
 
+        //parse options
+        if ($input->getOption('drop-old')) {
+            $output->writeln("DELETING PLAYERS FROM DATABASE");
+
+            $rsm = new ResultSetMapping();
+            $query = $em->createNativeQuery('delete from player;', $rsm);
+            $query->getResult();
+        }
+
+        $output->writeln("PARSING PLAYERS FROM EXCEL FILE");
         for ($i = $tableMargin; $i <= $rowCount; $i = $i + 1) {
 
             $activeCell = $nameColumn . "$i";
