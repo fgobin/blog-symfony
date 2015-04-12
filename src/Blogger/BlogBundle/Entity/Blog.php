@@ -72,7 +72,7 @@ class Blog
      * @ORM\ManyToMany(targetEntity="Category")
      * @ORM\JoinTable(name="blog_categories",
      *      joinColumns={@ORM\JoinColumn(name="blog_id", referencedColumnName="id", onDelete="cascade")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id", unique=true, onDelete="cascade")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="cascade")}
      *      )
      **/
     protected $categories;

@@ -12,4 +12,29 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends EntityRepository
 {
+    /**
+     * Returns categories with names in parameter
+     * @param $names
+     * @return array
+     */
+    function getCategories($names) {
+        $i = 0;
+        $params = array();
+
+        foreach ($names as $name) {
+            $params[$i] = $name;
+            $i++;
+        }
+
+        $query =
+            $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.name IN (:names)')
+            ->setParameter('names', $params)
+            ->getQuery();
+
+        $result = $query->getResult();
+
+        return $result;
+    }
 }

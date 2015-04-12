@@ -4,6 +4,11 @@ BloggerBlogBundle_homepage:
     defaults: { _controller: BloggerBlogBundle:Page:index }
     methods: [GET]
 
+BloggerBlogBundle_homepage_post:
+    pattern:  /
+    defaults: { _controller: BloggerBlogBundle:Page:indexPost }
+    methods: [POST]
+
 BloggerBlogBundle_about:
     pattern: /about
     defaults: { _controller: BloggerBlogBundle:Page:about }

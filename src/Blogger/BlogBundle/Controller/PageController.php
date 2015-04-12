@@ -12,11 +12,32 @@ use Symfony\Component\HttpFoundation\Request;
 class PageController extends Controller {
 
     public function indexAction() {
-
         $em = $this->getDoctrine()->getManager();
 
         $blogs = $em->getRepository('BloggerBlogBundle:Blog')
                     ->getLatestBlogs();
+
+        return $this->render('BloggerBlogBundle:Page:index.html.twig', array(
+            'blogs' => $blogs
+        ));
+    }
+
+    public function indexPostAction(Request $request) {
+        $query = $request->request->get('blogger_blogbundle_category');
+        $em = $this->getDoctrine()->getManager();
+
+        $blogs = null;
+
+        if($query != null && $query == 'all') {
+            $blogs = $em->getRepository('BloggerBlogBundle:Blog')->getLatestBlogs();
+        }
+        else {
+            $blogs = $em->getRepository('BloggerBlogBundle:Blog')->getByCategory($query);
+        }
+
+        if($blogs == null) {
+            $blogs = $em->getRepository('BloggerBlogBundle:Blog')->getLatestBlogs();
+        }
 
         return $this->render('BloggerBlogBundle:Page:index.html.twig', array(
             'blogs' => $blogs

@@ -4,6 +4,7 @@ namespace Blogger\BlogBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 /**
  * BlogRepository
@@ -32,6 +33,40 @@ class BlogRepository extends EntityRepository
 
     }
 
+    public function getByCategory($category) {
+        //get category ids from names
+        $categories = $this
+            ->getEntityManager()
+            ->getRepository('BloggerBlogBundle:Category')
+            ->getCategories($category);
+
+        $i = 0;
+        $category_array = array();
+        foreach ($categories as $cat) {
+            $category_array[$i] = $cat->getId();
+            $i++;
+        }
+        //get blog ids from category ids
+        //select distinct blog_id from blog_categories where category_id in (:ids);
+        $rsm = new ResultSetMapping();
+        $rsm->addEntityResult('BloggerBlogBundle:Blog', 'b');
+        $rsm->addFieldResult('b', 'blog_id', 'id');
+        $rsm->addFieldResult('b', 'title', 'title');
+        $rsm->addFieldResult('b', 'author', 'author');
+        $rsm->addFieldResult('b', 'blog', 'blog');
+        $rsm->addFieldResult('b', 'slug', 'slug');
+        $rsm->addFieldResult('b', 'tags', 'tags');
+
+        //TODO: map image file
+        $query = $this->getEntityManager()
+            ->createNativeQuery(
+                'select distinct blog_id, title, author, blog, slug, tags from blog_categories join blog on blog_id = id where category_id in(:ids);', $rsm);
+
+        $query->setParameter('ids', $category_array);
+        $blogIds = $query->getResult();
+
+        return $blogIds;
+    }
     /**
      * Method returs previous blog of blog with id $id
      * @param $id Id of current blog

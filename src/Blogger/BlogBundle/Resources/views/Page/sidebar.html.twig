@@ -17,6 +17,11 @@
     </p>
 </div>
 
+
+<div class="row">
+    {{ render(controller( 'BloggerBlogBundle:Category:showForm')) }}
+</div>
+
 <div class="row">
     <h3>Latest Comments</h3>
 
@@ -46,5 +51,4 @@
         {% endfor %}
         </ul>
     </div>
-
 </div>

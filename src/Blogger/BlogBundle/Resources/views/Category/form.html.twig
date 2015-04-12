@@ -1,0 +1,9 @@
+{# src/Blogger/BlogBundle/Resources/views/Comment/form.html.twig #}
+
+<h3>Pick category:</h3>
+<form action="{{ path('BloggerBlogBundle_homepage_post') }}" method="post" {{ form_enctype(form) }} id="category_form">
+    {{ form_rest(form) }}
+    <button type="submit" class="btn btn-primary" role="button" >
+        Search
+    </button>
+</form>
