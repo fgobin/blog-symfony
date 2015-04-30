@@ -62,6 +62,14 @@ class TennisRankingCommand extends ContainerAwareCommand
         $birthDateColumn = 'E';
         $pointsColumn = 'F';
         $currentTournamentColumn = 'O';
+        $countryRanking = 'M';
+        $currentRound = 'N';
+        $pp_R32 = 'Z';
+        $pp_R16 = 'AA';
+        $pp_QF = 'AB';
+        $pp_SF = 'AC';
+        $pp_F = 'AD';
+        $pp_W = 'AE';
 
         //margin of table (where data starts)
         $tableMargin = 6;
@@ -87,47 +95,53 @@ class TennisRankingCommand extends ContainerAwareCommand
             $savedPlayer = $em->getRepository('BloggerCommandsBundle:Player')->findOneBy(array('name' => $playerName));
 
             if($savedPlayer == null) {
-                $player = new Player();
-                $player->setName($playerName);
-
-                $activeCell = $rankColumn . "$i";
-                $player->setRank(intval($activeSheet->getCell($activeCell)->getValue()));
-
-                $activeCell = $countryColumn . "$i";
-                $player->setCountry($activeSheet->getCell($activeCell)->getValue());
-
-                $activeCell = $birthDateColumn . "$i";
-                $player->setBirthDate($activeSheet->getCell($activeCell)->getFormattedValue());
-
-                $activeCell = $pointsColumn . "$i";
-                $player->setPoints(intval($activeSheet->getCell($activeCell)->getValue()));
-
-                $activeCell = $currentTournamentColumn . "$i";
-                $player->setCurrentTournament($activeSheet->getCell($activeCell)->getValue());
-
-                $em->persist($player);
-                $em->flush();
-
-            } else {
-                $activeCell = $rankColumn . "$i";
-                $savedPlayer->setRank(intval($activeSheet->getCell($activeCell)->getValue()));
-
-                $activeCell = $countryColumn . "$i";
-                $savedPlayer->setCountry($activeSheet->getCell($activeCell)->getValue());
-
-                $activeCell = $birthDateColumn . "$i";
-                $savedPlayer->setBirthDate($activeSheet->getCell($activeCell)->getFormattedValue());
-
-                $activeCell = $pointsColumn . "$i";
-                $savedPlayer->setPoints(intval($activeSheet->getCell($activeCell)->getValue()));
-
-                $activeCell = $currentTournamentColumn . "$i";
-                $savedPlayer->setCurrentTournament($activeSheet->getCell($activeCell)->getValue());
-
-                $em->persist($savedPlayer);
-                $em->flush();
+                $savedPlayer = new Player();
+                $savedPlayer->setName($playerName);
             }
-        }
 
+            $activeCell = $rankColumn . "$i";
+            $savedPlayer->setRank(intval($activeSheet->getCell($activeCell)->getValue()));
+
+            $activeCell = $countryColumn . "$i";
+            $savedPlayer->setCountry($activeSheet->getCell($activeCell)->getValue());
+
+            $activeCell = $birthDateColumn . "$i";
+            $savedPlayer->setBirthDate($activeSheet->getCell($activeCell)->getFormattedValue());
+
+            $activeCell = $pointsColumn . "$i";
+            $savedPlayer->setPoints(intval($activeSheet->getCell($activeCell)->getValue()));
+
+            $activeCell = $currentTournamentColumn . "$i";
+            $savedPlayer->setCurrentTournament($activeSheet->getCell($activeCell)->getValue());
+
+            $activeCell = $countryRanking . "$i";
+            $savedPlayer->setCountryRanking(intval($activeSheet->getCell($activeCell)->getValue()));
+
+            $activeCell = $currentRound . "$i";
+            $savedPlayer->setCurrentRound($activeSheet->getCell($activeCell)->getValue());
+
+            //add point prediction
+            $activeCell = $pp_R32 . "$i";
+            $savedPlayer->setPpR32(intval($activeSheet->getCell($activeCell)->getValue()));
+
+            $activeCell = $pp_R16 . "$i";
+            $savedPlayer->setPpR16(intval($activeSheet->getCell($activeCell)->getValue()));
+
+            $activeCell = $pp_QF . "$i";
+            $savedPlayer->setPpQF(intval($activeSheet->getCell($activeCell)->getValue()));
+
+            $activeCell = $pp_SF . "$i";
+            $savedPlayer->setPpSF(intval($activeSheet->getCell($activeCell)->getValue()));
+
+            $activeCell = $pp_F . "$i";
+            $savedPlayer->setPpF(intval($activeSheet->getCell($activeCell)->getValue()));
+
+            $activeCell = $pp_W . "$i";
+            $savedPlayer->setPpW(intval($activeSheet->getCell($activeCell)->getValue()));
+
+            $em->persist($savedPlayer);
+
+        }
+        $em->flush();
     }
 }
