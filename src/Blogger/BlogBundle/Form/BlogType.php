@@ -21,6 +21,16 @@ class BlogType extends AbstractType
                 'required' => false
             ))
             ->add('tags');
+
+        //add categories to form
+        $builder->add('categories', 'entity', array(
+            'class' => 'BloggerBlogBundle:Category',
+            'property' => 'name',
+            'multiple' => true,
+            'expanded' => true,
+        ));
+
+
     }
 
     /**

@@ -36,6 +36,17 @@
         </ul>
     </nav>
 
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Categories</h3>
+            <ul>
+                {% for category in blog.categories %}
+                    <li>{{  category.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
     <a href="{{ path('blog_edit', { 'id': blog.id }) }}" class="btn btn-primary" role="button">Edit post</a>
 
     <div class="col-md-12">

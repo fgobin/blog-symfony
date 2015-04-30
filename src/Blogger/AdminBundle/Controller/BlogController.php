@@ -73,7 +73,7 @@ class BlogController extends Controller
      */
     private function createCreateForm(Blog $entity)
     {
-        $form = $this->createForm(new BlogType(), $entity, array(
+       $form = $this->createForm(new BlogType(), $entity, array(
             'action' => $this->generateUrl('blog_create'),
             'method' => 'POST',
         ));
