@@ -35,6 +35,8 @@
         </div>
     </div>
 
+    {{ form_widget(form.submit, { 'label': 'Create' , 'attr': {'class':'btn btn-default'}}) }}
+
     {{ form_rest(form) }}
     {{ form_end(form) }}
 {% endblock %}

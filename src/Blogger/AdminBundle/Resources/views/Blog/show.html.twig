@@ -36,19 +36,20 @@
         </ul>
     </nav>
 
+    <a href="{{ path('blog_edit', { 'id': blog.id }) }}" class="btn btn-primary" role="button">Edit post</a>
 
-    <div class="container  col-md-12">
+    <div class="col-md-12">
 
-        <div class="container  col-md-8">
+        <div class="col-md-8">
             <h3>Comments</h3>
             {% include 'BloggerBlogBundle:Comment:index.html.twig' with { 'comments': comments } %}
         </div>
-        <div class="container  col-md-8">
+        <div class="col-md-8">
             <button class="btn btn-primary" role="button" onclick="toggler('comment-form-container','addReply');" id="addReply">
                 Add reply
             </button>
         </div>
-        <div class="container  col-md-8" id="comment-form-container" style="display: none;">
+        <div class="col-md-8" id="comment-form-container" style="display: none;">
             <h3>Add Comment</h3>
             {{ render(controller( 'BloggerBlogBundle:Comment:new', { 'blog_id': blog.id } )) }}
         </div>

@@ -5,41 +5,48 @@
 
     {% for blog in blogs %}
         <article class="blog">
+
             <header>
                 <div class="date"><time datetime="{{ blog.created|date('c') }}">{{ blog.created|date('l, F j, Y') }}</time></div>
                 <h2>{{ blog.title }}</h2>
             </header>
 
+            <div class="row">
+                <div class="col-md-12">
             {% if blog.image %}
                 {{ blog.image|vlabs_media('image') }}
             {% endif %}
-
-            <div>
-                <p>{{ blog.blog |raw }}</p> <!-- TODO: close end tags... don't show whole blog post-->
+                </div>
             </div>
-            <div class="row col-md-12">
 
-                <a href="{{ path('BloggerBlogBundle_blog_show', { 'id': blog.id,'slug': blog.slug }) }}" class="btn btn-primary" role="button">
-                    Read more...
-                </a>
+            <div class="row">
+                <div class="col-md-12">
+                    <p>{{ blog.blog |raw }}</p> <!-- TODO: close end tags... don't show whole blog post-->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="{{ path('BloggerBlogBundle_blog_show', { 'id': blog.id,'slug': blog.slug }) }}" class="btn btn-primary" role="button">
+                        Read more...
+                    </a>
+                </div>
                 <h6>&nbsp</h6>
             </div>
 
-            <div class="container  col-md-12">
-                <footer class="meta">
-                    <div class="row">
-                        <ul class="list-group">
-                            <li class="list-group-item list-group-item-info">
-                                <p>Comments: <span class="badge"> {{ blog.comments|length  }} </span></p>
-                                <p>Posted by {{blog.author}} at {{ blog.created|date('j. F Y.') }}</p>
-                                <p>Tags: <span class="label label-default">{{ blog.tags }}</span></p>
-                            </li>
-                        </ul>
-
-                    </div>
-                </footer>
+            <div class="row">
+                <div class="col-md-12">
+                    <footer class="meta">
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-item-info">
+                                    <p>Comments: <span class="badge"> {{ blog.comments|length  }} </span></p>
+                                    <p>Posted by {{blog.author}} at {{ blog.created|date('j. F Y.') }}</p>
+                                    <p>Tags: <span class="label label-default">{{ blog.tags }}</span></p>
+                                </li>
+                            </ul>
+                    </footer>
+                </div>
             </div>
-
 
         </article>
     {% endfor %}

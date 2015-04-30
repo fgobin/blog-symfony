@@ -54,11 +54,8 @@
                 {% block authentication_status %}
                     <ul class="nav navbar-nav pull-right">
                         <li>
-                           <p> You are logged in as {{ app.user.username }} </p>
-                        </li>
-                        <li>
                             <a href="{{ path('fos_user_security_logout') }}">
-                                Logout
+                                Logout {{ app.user.username }}
                             </a>
                         </li>
                     </ul>

@@ -5,5 +5,17 @@
 {% endblock %}
 
 {% block body -%}
-    {{ form(form) }}
+    {{ form_start(form, {'method': 'POST'}) }}
+
+    <div class="form-group">
+        {{ form_label(form.name, 'Name:', {'label_attr': {'class':'col-sm-2 control-label'}}) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.name, {'attr': {'class':'form-control'}}) }}
+        </div>
+    </div>
+
+    {{ form_widget(form.submit, { 'label': 'Create' , 'attr': {'class':'btn btn-default'}}) }}
+    {{ form_rest(form) }}
+
+    {{ form_end(form) }}
 {% endblock %}

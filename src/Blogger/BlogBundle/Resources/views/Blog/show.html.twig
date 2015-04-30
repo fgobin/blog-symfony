@@ -8,18 +8,25 @@
 {% endblock %}
 
 {% block body %}
+
     <article class="blog">
         <header>
             <div class="date"><time datetime="{{ blog.created|date('c') }}">{{ blog.created|date('l, F j, Y') }}</time></div>
             <h2>{{ blog.title }}</h2>
         </header>
+
         {% if blog.image %}
+        <div class="row">
             {{ blog.image|vlabs_media('image') }}
+        </div>
         {% endif %}
-        <div>
+
+        <div class="row">
             <p>{{ blog.blog |raw }}</p>
         </div>
+
     </article>
+
     <nav>
         <ul class="pager">
             {% if previousBlog %}
@@ -35,8 +42,8 @@
         </ul>
     </nav>
 
-    <div class="container  col-md-12">
-        <div class="container  col-md-8">
+    <div class="row">
+        <div class="col-md-12">
             <h3>Categories</h3>
             <ul>
                 {% for category in blog.categories %}
@@ -44,24 +51,26 @@
                 {% endfor %}
             </ul>
         </div>
-
-
     </div>
 
-    <div class="container  col-md-12">
 
-        <div class="container  col-md-8">
-            <h3>Comments</h3>
-            {% include 'BloggerBlogBundle:Comment:index.html.twig' with { 'comments': comments } %}
-        </div>
-        <div class="container  col-md-8">
-            <button class="btn btn-primary" role="button" onclick="toggler('comment-form-container','addReply');" id="addReply">
-                Add reply
-            </button>
-        </div>
-        <div class="container  col-md-8" id="comment-form-container" style="display: none;">
-            <h3>Add Comment</h3>
-            {{ render(controller( 'BloggerBlogBundle:Comment:new', { 'blog_id': blog.id } )) }}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-8">
+                <h3>Comments</h3>
+                {% include 'BloggerBlogBundle:Comment:index.html.twig' with { 'comments': comments } %}
+            </div>
+
+            <div class="col-md-8">
+                <button class="btn btn-primary" role="button" onclick="toggler('comment-form-container','addReply');" id="addReply">
+                    Add reply
+                </button>
+            </div>
+
+            <div class="col-md-8" id="comment-form-container" style="display: none;">
+                <h3>Add Comment</h3>
+                {{ render(controller( 'BloggerBlogBundle:Comment:new', { 'blog_id': blog.id } )) }}
+            </div>
         </div>
     </div>
 
